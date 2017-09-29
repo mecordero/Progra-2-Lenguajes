@@ -2,13 +2,14 @@
 suma(0,0):-!.
 suma(Valor,Resultado):- Ant is Valor-1, suma(Ant,AntRes),
     Resultado is Valor + AntRes.
+
 %Dice si la suma de un numero es mayor a otro
 sumaMayor(Fijo,Sumado):- suma(Sumado, Resultado), Resultado >= Fijo.
 
 %Dice el numero de fila horizontal de un numero
 numeroFilaH(Numero,Fila):- numeroFilaH(Numero,Fila,1).
 
-%Metodo auxiliar de numeroFila
+%Metodo auxiliar de numeroFilaH
 numeroFilaH(Numero,Fila,Actual):- sumaMayor(Numero, Actual), Fila is Actual,!.
 numeroFilaH(Numero,Fila,Actual):- ActualSig is Actual+1,
     numeroFilaH(Numero, FilaSig,ActualSig), Fila is FilaSig.
@@ -46,3 +47,22 @@ mismaDiagonal_120(X,Y):- numeroDiagonal_120(X,Diag1), numeroDiagonal_120(Y,Diag2
     Diag1 is Diag2.
 
 
+%FIGURAS
+
+%Triangulo
+
+%Hexagono
+hexagono([P1,P2,P3,P4,P5,P6]):-
+    %Recibe la lista ordenada
+    mismaFilaH(P1,P2),
+    mismaFilaH(P5,P6),
+    mismaDiagonal_60(P1,P3),
+    mismaDiagonal_60(P6,P4),
+    mismaDiagonal_120(P2,P4),
+    mismaDiagonal_120(P3,P5).
+
+
+
+
+
+%Paralelogramo
