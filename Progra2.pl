@@ -14,7 +14,7 @@ numeroFilaH(Numero,Fila,Actual):- sumaMayor(Numero, Actual), Fila is Actual,!.
 numeroFilaH(Numero,Fila,Actual):- ActualSig is Actual+1,
     numeroFilaH(Numero, FilaSig,ActualSig), Fila is FilaSig.
 
-%Dice si 2 puntos est·n en la misma fila horizontal
+%Dice si 2 puntos est√°n en la misma fila horizontal
 mismaFilaH(X,Y):- numeroFilaH(X,Fil1), numeroFilaH(Y,Fil2), Fil1 is Fil2.
 
 %Puntos de inicio y fin de las filas
@@ -51,6 +51,18 @@ mismaDiagonal_120(X,Y):- numeroDiagonal_120(X,Diag1), numeroDiagonal_120(Y,Diag2
 
 %Triangulo
 
+%triangulo hacia arriba
+triangulo([P1,P2,P3]) :-
+   mismaDiagonal_60(P1,P2),
+   mismaFilaH(P2,P3),
+   mismaDiagonal_120(P1,P3).
+
+%triangulo hacia abajo
+triangulo([P1,P2,P3]) :-
+  mismaDiagonal_60(P2,P3),
+  mismaFilaH(P1,P2),
+  mismaDiagonal_120(P1,P3).
+
 %Hexagono
 hexagono([P1,P2,P3,P4,P5,P6]):-
     %Recibe la lista ordenada
@@ -62,7 +74,34 @@ hexagono([P1,P2,P3,P4,P5,P6]):-
     mismaDiagonal_120(P3,P5).
 
 
+%ParalelogramoHorizontal_60
+paralelogramo([P1,P2,P3,P4]) :-
+    mismaFilaH(P1,P2),
+    mismaFilaH(P3,P4),
+    mismaDiagonal_60(P1,P3),
+    mismaDiagonal_60(P2,P4).
 
 
+%ParalelogramoHorizontal_120
+paralelogramo([P1,P2,P3,P4]) :-
+    mismaFilaH(P1,P2),
+    mismaFilaH(P3,P4),
+    mismaDiagonal_120(P1,P3),
+    mismaDiagonal_120(P2,P4).
 
-%Paralelogramo
+
+%Paralelogramo_60_120
+paralelogramo([P1,P2,P3,P4]) :-
+    mismaDiagonal_60(P1,P3),
+    mismaDiagonal_60(P2,P4),
+    mismaDiagonal_120(P1,P2),
+    mismaDiagonal_120(P3,P4).
+
+
+%Paralelogramo_120_60
+paralelogramo([P1,P2,P3,P4]) :-
+    mismaDiagonal_60(P1,P2),
+    mismaDiagonal_60(P3,P4),
+    mismaDiagonal_120(P1,P3),
+    mismaDiagonal_120(P2,P4).
+
