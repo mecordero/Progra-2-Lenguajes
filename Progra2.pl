@@ -1,5 +1,4 @@
-
-%Suma todos los valores hasta ese numero :) 
+%Suma todos los valores hasta ese numero
 suma(0,0):-!.
 suma(Valor,Resultado):- Ant is Valor-1, suma(Ant,AntRes),
     Resultado is Valor + AntRes.
@@ -108,25 +107,41 @@ paralelogramo([P1,P2,P3,P4]) :-
 
 
 
+%Ordenamiento de una lista.
+quick_sort2(List,Sorted):-
+    q_sort(List,[],Sorted).
+    q_sort([],Acc,Acc).
+    q_sort([H|T],Acc,Sorted):-
+    pivoting(H,T,L1,L2),
+    q_sort(L1,Acc,Sorted1),q_sort(L2,[H|Sorted1],Sorted).
+
+pivoting(H,[],[],[]).
+pivoting(H,[X|T],[X|L],G):-X>=H,pivoting(H,T,L,G).
+pivoting(H,[X|T],L,[X|G]):-X<H,pivoting(H,T,L,G).
+
+
 %isFigure
 is_figure(_,[]):-!.
 
 is_figure(R,[Head|Tail]):-
-   triangulo(Head),
+   quick_sort2(Head,Sorted),
+   triangulo(Sorted),
    llena_R(R1,Head),
    atom_concat(R1, 'forman un triangulo', R),
    writeln(R),
    is_figure(_,Tail),!.
 
 is_figure(R,[Head|Tail]):-
-   hexagono(Head),
+   quick_sort2(Head,Sorted),
+   hexagono(Sorted),
    llena_R(R1,Head),
    atom_concat(R1, 'forman un hexagono', R),
    writeln(R),
    is_figure(_,Tail),!.
 
 is_figure(R,[Head|Tail]):-
-   paralelogramo(Head),
+   quick_sort2(Head,Sorted),
+   paralelogramo(Sorted),
    llena_R(R1,Head),
    atom_concat(R1, 'forman un paralelogramo',R),
    writeln(R),
