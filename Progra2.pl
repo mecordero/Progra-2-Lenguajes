@@ -114,24 +114,26 @@ is_figure(R,Lista):-
    is_figure(Lista,Acum,_),
    return_list_members(Acum,R).
 
-is_figure([],_,Hole):-Hole = [],!.
+is_figure([],_,Hole):- Hole = [],!.
 
 is_figure([Head|Tail],[X|Hole],Hole):-
-   triangulo(Head),
+   quick_sort2(Head,Sorted),
+   triangulo(Sorted),
    llena_R(R1,Head),
-
    atom_concat(R1, 'forman un triangulo', X),
    is_figure(Tail,Hole,_),!.
 
 is_figure([Head|Tail],[X|Hole],Hole):-
-   hexagono(Head),
+   quick_sort2(Head,Sorted),
+   hexagono(Sorted),
    llena_R(R1,Head),
    atom_concat(R1, 'forman un hexagono', X),
 
    is_figure(Tail,Hole,_),!.
 
 is_figure([Head|Tail],[X|Hole],Hole):-
-   paralelogramo(Head),
+   quick_sort2(Head,Sorted),
+   paralelogramo(Sorted),
    llena_R(R1,Head),
    atom_concat(R1, 'forman un paralelogramo', X),
    is_figure(Tail,Hole,_),!.
@@ -161,3 +163,15 @@ return_list_members([X|_], X).
 return_list_members([_|T], X):-
   return_list_members(T, X).
 
+
+%Ordenamiento de una lista.
+quick_sort2(List,Sorted):-
+    q_sort(List,[],Sorted).
+    q_sort([],Acc,Acc).
+    q_sort([H|T],Acc,Sorted):-
+    pivoting(H,T,L1,L2),
+    q_sort(L1,Acc,Sorted1),q_sort(L2,[H|Sorted1],Sorted).
+
+pivoting(_,[],[],[]).
+pivoting(H,[X|T],[X|L],G):-X>=H,pivoting(H,T,L,G).
+pivoting(H,[X|T],L,[X|G]):-X<H,pivoting(H,T,L,G).
