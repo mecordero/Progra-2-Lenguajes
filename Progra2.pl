@@ -1,5 +1,5 @@
 
-%Suma todos los valores hasta ese numero
+%Suma todos los valores hasta ese numero :) 
 suma(0,0):-!.
 suma(Valor,Resultado):- Ant is Valor-1, suma(Ant,AntRes),
     Resultado is Valor + AntRes.
@@ -15,7 +15,7 @@ numeroFilaH(Numero,Fila,Actual):- sumaMayor(Numero, Actual), Fila is Actual,!.
 numeroFilaH(Numero,Fila,Actual):- ActualSig is Actual+1,
     numeroFilaH(Numero, FilaSig,ActualSig), Fila is FilaSig.
 
-%Dice si 2 puntos están en la misma fila horizontal
+%Dice si 2 puntos estÃ¡n en la misma fila horizontal
 mismaFilaH(X,Y):- numeroFilaH(X,Fil1), numeroFilaH(Y,Fil2), Fil1 is Fil2.
 
 %Puntos de inicio y fin de las filas
@@ -134,7 +134,7 @@ is_figure(R,[Head|Tail]):-
 
 is_figure(R,[Head|Tail]):-
    llena_R(R1,Head),
-   atom_concat(R1,'no forman ninguna figura v�lida',R),
+   atom_concat(R1,'no forman ninguna figura válida',R),
    writeln(R),
    is_figure(_,Tail).
 
