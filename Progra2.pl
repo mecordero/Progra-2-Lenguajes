@@ -109,34 +109,39 @@ paralelogramo([P1,P2,P3,P4]) :-
 
 
 %isFigure
-is_figure(_,[]):-!.
 
-is_figure(R,[Head|Tail]):-
+is_figure(R,Lista):-
+   is_figure(Lista,Acum,_),
+   return_list_members(Acum,R).
+
+is_figure([],_,Hole):-Hole = [],!.
+
+is_figure([Head|Tail],[X|Hole],Hole):-
    triangulo(Head),
    llena_R(R1,Head),
-   atom_concat(R1, 'forman un triangulo', R),
-   writeln(R),
-   is_figure(_,Tail),!.
 
-is_figure(R,[Head|Tail]):-
+   atom_concat(R1, 'forman un triangulo', X),
+   is_figure(Tail,Hole,_),!.
+
+is_figure([Head|Tail],[X|Hole],Hole):-
    hexagono(Head),
    llena_R(R1,Head),
-   atom_concat(R1, 'forman un hexagono', R),
-   writeln(R),
-   is_figure(_,Tail),!.
+   atom_concat(R1, 'forman un hexagono', X),
 
-is_figure(R,[Head|Tail]):-
+   is_figure(Tail,Hole,_),!.
+
+is_figure([Head|Tail],[X|Hole],Hole):-
    paralelogramo(Head),
    llena_R(R1,Head),
-   atom_concat(R1, 'forman un paralelogramo',R),
-   writeln(R),
-   is_figure(_,Tail),!.
+   atom_concat(R1, 'forman un paralelogramo', X),
+   is_figure(Tail,Hole,_),!.
 
-is_figure(R,[Head|Tail]):-
+is_figure([Head|Tail],[X|Hole],Hole):-
    llena_R(R1,Head),
-   atom_concat(R1,'no forman ninguna figura válida',R),
-   writeln(R),
-   is_figure(_,Tail).
+   atom_concat(R1, 'no forman ninguna figura válida',X),
+   is_figure(Tail,Hole,_),!.
+
+
 
 
 %funcion que llena R
@@ -148,3 +153,11 @@ llena_R(R,[Head|Tail],R1):-
    atom_concat(R1, Head, R2),
    atom_concat(R2, ' ', R3),
    llena_R(R,Tail,R3).
+
+
+%Retorna 1 a 1 la lista
+return_list_members([X], X):- !.
+return_list_members([X|_], X).
+return_list_members([_|T], X):-
+  return_list_members(T, X).
+
