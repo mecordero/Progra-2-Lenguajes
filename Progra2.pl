@@ -119,14 +119,14 @@ is_figure([Head|Tail],[X|Hole],Hole):-
    quick_sort2(Head,Sorted),
    triangulo(Sorted),
    llena_R(R1,Head),
-   atom_concat(R1, 'son vértices de un triangulo', X),
+   atom_concat(R1, 'son los vértices de un triangulo', X),
    is_figure(Tail,Hole,_),!.
 
 is_figure([Head|Tail],[X|Hole],Hole):-
    quick_sort2(Head,Sorted),
    hexagono(Sorted),
    llena_R(R1,Head),
-   atom_concat(R1, 'son vértices de un hexágono', X),
+   atom_concat(R1, 'son los vértices de un hexágono', X),
 
    is_figure(Tail,Hole,_),!.
 
@@ -134,12 +134,12 @@ is_figure([Head|Tail],[X|Hole],Hole):-
    quick_sort2(Head,Sorted),
    paralelogramo(Sorted),
    llena_R(R1,Head),
-   atom_concat(R1, 'son vértices de un paralelogramo', X),
+   atom_concat(R1, 'son los vértices de un paralelogramo', X),
    is_figure(Tail,Hole,_),!.
 
 is_figure([Head|Tail],[X|Hole],Hole):-
    llena_R(R1,Head),
-   atom_concat(R1, 'no son vértices de una figura aceptable',X),
+   atom_concat(R1, 'no son los vértices de una figura aceptable',X),
    is_figure(Tail,Hole,_),!.
 
 
